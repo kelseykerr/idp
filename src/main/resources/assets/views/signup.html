@@ -1,0 +1,55 @@
+<div class="auth-form">
+  <form class="app-form" id="signup" name="signUpForm" novalidate>
+    <a href class="form-link" ng-click="signUp.signInUrl()">
+      Sign In Here
+    </a>
+
+    <label for="email">Email</label>
+    <input type="email"
+           class="form-control"
+           name="email"
+           id="email"
+           ng-model="signUp.email"
+           required>
+    <div ng-messages="signUpForm.email.$error" role="alert" ng-if="signUpForm.email.$touched">
+      <div ng-message="required" class="help-block">please enter your email address</div>
+      <div ng-message="email" class="help-block">invalid email</div>
+    </div>
+
+    <label for="password">Password</label>
+    <input type="password"
+           class="form-control"
+           name="password"
+           id="password"
+           ng-model="signUp.password"
+           password-verifier
+           required> {{required}}
+    <div ng-messages="signUpForm.password.$error" ng-messages-multiple role="alert" ng-if="signUpForm.password.$touched">
+      <div ng-if="!signUp.password.length" ng-message="required" class="help-block">please enter your password</div>
+      <div ng-if="signUp.password.length > 0" ng-message="hasSpecial" class="help-block">password must contain a special character</div>
+      <div ng-if="signUp.password.length > 0" ng-message="hasLength" class="help-block">password must be between 8 and 255 characters</div>
+    </div>
+
+    <label for="repeatPassword">Repeat Password</label>
+    <input type="password"
+           class="form-control"
+           name="repeatPassword"
+           id="repeatPassword"
+           ng-model="signUp.repeatPassword"
+           compare-to="signUp.password"
+           required>
+    <div ng-messages="signUpForm.repeatPassword.$error" role="alert" ng-if="signUpForm.repeatPassword.$touched">
+      <div ng-message="required" class="help-block">please re-enter your password</div>
+      <div ng-if="signUp.password !== signUp.repeatPassword" class="help-block">passwords must match</div>
+    </div>
+
+    <div class="alert alert-danger" role="alert" ng-if="signUp.errorMessage">
+      {{signUp.errorMessage}}
+    </div>
+
+    <div>
+      <button class="btn pull-right" type="submit" ng-click="signUp.submit()" ng-disabled="signUpForm.$invalid">sign up</button>
+    </div>
+
+  </form>
+</div>

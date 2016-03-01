@@ -1,0 +1,40 @@
+<div class="auth-form">
+<form class="app-form" id="signin" name="signInForm" novalidate>
+  <a href class="form-link" ng-click="signIn.signUpUrl()">
+    Sign Up Here
+  </a>
+
+  <label for="email">Email</label>
+  <input type="email"
+         class="form-control"
+         name="email"
+         id="email"
+         ng-model="signIn.email"
+         required>
+  <div ng-messages="signInForm.email.$error" role="alert" ng-if="signInForm.email.$touched">
+    <div ng-message="required" class="help-block">please enter your email address</div>
+    <div ng-message="email" class="help-block">invalid email</div>
+  </div>
+
+  <label for="password">Password</label>
+  <input type="password"
+         class="form-control"
+         name="password"
+         id="password"
+         ng-model="signIn.password"
+         required
+         password>
+  <div ng-messages="signInForm.password.$error" role="alert" ng-if="signInForm.password.$touched">
+    <div ng-message="required" class="help-block">please enter your password</div>
+  </div>
+
+  <div class="alert alert-danger" role="alert" ng-if="signIn.errorMessage">
+    {{signIn.errorMessage}}
+  </div>
+
+  <div>
+    <button class="btn pull-right" type="submit" ng-click="signIn.submit()" ng-disabled="signInForm.$invalid">sign in</button>
+  </div>
+
+</form>
+</div>
