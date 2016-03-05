@@ -28,4 +28,5 @@ public class UserDAO extends AbstractDAO<User> {
         currentSession().saveOrUpdate(user);
         return user;
     }
+
 }

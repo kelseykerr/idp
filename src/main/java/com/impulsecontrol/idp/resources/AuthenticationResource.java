@@ -44,7 +44,6 @@ public class AuthenticationResource {
         if (user != null) {
             throw new ConflictException("User with the email [" + creds.email + "] already exists.");
         }
-
         User newUser = new User(creds.email, creds.password);
         return userDAO.saveOrUpdate(newUser);
     }

@@ -27,8 +27,16 @@ angular.module('idManagementApp')
         };
 
         $http.defaults.headers.common['Authorization'] = 'Basic ' + authData; // jshint ignore:line
-        $cookies.put('globals', $rootScope.globals);
-        console.log($cookies.get('globals'));
+        $cookies.put('globals', angular.toJson($rootScope.globals));
+      },
+
+      setHeaders: function () {
+        var userInfo = angular.fromJson($cookies.get('globals'));
+        $http.defaults.headers.common['Authorization'] = 'Basic ' + userInfo.currentUser.authData; // jshint ignore:line
+      },
+
+      getUserInfo: function () {
+        return $http.get('api/user');
       },
 
       clearCreds: function () {

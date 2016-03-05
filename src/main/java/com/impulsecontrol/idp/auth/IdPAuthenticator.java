@@ -23,7 +23,7 @@ public class IdPAuthenticator implements Authenticator<BasicCredentials, User> {
     public Optional<User> authenticate(BasicCredentials credentials) throws AuthenticationException {
         User user = userDAO.findUserByName(credentials.getUsername());
         if (user != null && user.getPassword().equals(credentials.getPassword())) {
-            return Optional.of(new User(credentials.getUsername(), credentials.getPassword()));
+            return Optional.of(user);
         }
         return Optional.absent();
     }
