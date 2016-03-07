@@ -70,7 +70,7 @@ public class IdentityManagementApp extends Application<IdentityManagementConfigu
 
         FilterRegistration.Dynamic filterRegistration = environment.servlets()
                 .addFilter("basicAuthFilter", securityFilter);
-        filterRegistration.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/api/users/*");
+        filterRegistration.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/api/user");
     }
 
 }

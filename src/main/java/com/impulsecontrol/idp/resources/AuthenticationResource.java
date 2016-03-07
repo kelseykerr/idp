@@ -4,6 +4,7 @@ import com.impulsecontrol.idp.Exceptions.ConflictException;
 import com.impulsecontrol.idp.core.User;
 import com.impulsecontrol.idp.db.UserDAO;
 import com.impulsecontrol.idp.wrappers.CredentialDTO;
+import com.impulsecontrol.idp.wrappers.UserDTO;
 import io.dropwizard.hibernate.UnitOfWork;
 
 import javax.validation.Valid;
@@ -28,10 +29,10 @@ public class AuthenticationResource {
     @POST
     @Path("signin")
     @UnitOfWork
-    public User signIn(@Valid CredentialDTO creds) throws Exception {
+    public UserDTO signIn(@Valid CredentialDTO creds) throws Exception {
         User user = userDAO.findUserByName(creds.email);
         if (user != null && User.verifyPassword(creds.password, user.getPassword())) {
-            return user;
+            return UserDTO.transform(user);
         }
         return null;
     }
@@ -39,13 +40,14 @@ public class AuthenticationResource {
     @POST
     @Path("signup")
     @UnitOfWork
-    public User signUp(@Valid CredentialDTO creds) throws Exception {
+    public UserDTO signUp(@Valid CredentialDTO creds) throws Exception {
         User user = userDAO.findUserByName(creds.email);
         if (user != null) {
             throw new ConflictException("User with the email [" + creds.email + "] already exists.");
         }
         User newUser = new User(creds.email, creds.password);
-        return userDAO.saveOrUpdate(newUser);
+        userDAO.saveOrUpdate(newUser);
+        return UserDTO.transform(newUser);
     }
 
 

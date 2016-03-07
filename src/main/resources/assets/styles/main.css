@@ -104,3 +104,14 @@ body {
   font-size: 80%;
   color: #FFAA08;
 }
+
+.navbar {
+  margin-bottom: 0px;
+}
+
+.navbar-dropdown {
+  float: right;
+  font-size: 18px;
+  line-height: 50px;
+  color: #777;
+}

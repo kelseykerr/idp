@@ -14,6 +14,11 @@
   <!-- build:css(.tmp) styles/main.css -->
   <link rel="stylesheet" href="styles/main.css">
   <!-- endbuild -->
+  <style type="text/css">
+    [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+      display: none !important;
+    }
+  </style>
 </head>
 <body ng-app="idManagementApp">
 <!--[if lte IE 8]>
@@ -21,9 +26,8 @@
   your browser</a> to improve your experience.</p>
 <![endif]-->
 
-<!-- Add your site or application content here -->
-<div class="header">
-  <!--<div class="navbar navbar-default" role="navigation">
+<div class="header" ng-controller="NavbarCtrl" ng-show="navbar.show()">
+  <div class="navbar navbar-default" role="navigation">
     <div class="container">
       <div class="navbar-header">
 
@@ -34,19 +38,34 @@
           <span class="icon-bar"></span>
         </button>
 
-        <a class="navbar-brand" href="#/">assets</a>
+        <a class="navbar-brand" href="#/">IdP</a>
       </div>
 
-      <div class="collapse navbar-collapse" id="js-navbar-collapse">
+      <!--<div class="collapse navbar-collapse" id="js-navbar-collapse">
 
         <ul class="nav navbar-nav">
           <li class="active"><a href="#/">Home</a></li>
           <li><a ng-href="#/about">About</a></li>
           <li><a ng-href="#/">Contact</a></li>
         </ul>
-      </div>
+      </div> -->
+
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+             aria-expanded="false" ng-cloak>{{navbar.userInfo.firstName}}<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="">Action</a></li>
+            <li><a href="">Another action</a></li>
+            <li><a href="">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="">Separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+
     </div>
-  </div> -->
+  </div>
 </div>
 
 <div class="container">
@@ -84,10 +103,11 @@
 
 <!-- build:js({.tmp,app}) scripts/scripts.js -->
 <script src="scripts/app.js"></script>
-<script src="scripts/controllers/main.js"></script>
+<script src="scripts/controllers/dashboard.js"></script>
 <script src="scripts/controllers/signin.js"></script>
 <script src="scripts/controllers/signup.js"></script>
 <script src="scripts/services/AuthService.js"></script>
+<script src="scripts/controllers/navbar.js"></script>
 <script src="scripts/directives/passwordDirective.js"></script>
 <!-- endbuild -->
 </body>

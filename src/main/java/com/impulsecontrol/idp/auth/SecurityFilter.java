@@ -47,7 +47,6 @@ public class SecurityFilter extends OncePerRequestFilter {
         }
         logger.debug("[" + user.getUsername() + "] is authorized");
         request.setAttribute("X-Auth-User", user);
-        System.out.println(request.getAttribute("X-Auth-User"));
         filterChain.doFilter(request, response);
 
         session.close();

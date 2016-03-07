@@ -1,8 +1,9 @@
 'use strict';
 
 angular.module('idManagementApp')
-  .factory('authService', ['$http', '$cookies', '$rootScope', 'Base64', function ($http, $cookies, $rootScope, Base64) {
-
+  .factory('authService', ['$http', '$cookies', '$rootScope', 'Base64', '$q',
+    function ($http, $cookies, $rootScope, Base64, $q) {
+    var userInfo = {};
     return {
 
       signIn: function (creds) {
@@ -21,7 +22,7 @@ angular.module('idManagementApp')
         var authData = this.setCreds(email, password);
         $rootScope.globals = {
           currentUser: {
-            email: userInfo.email,
+            email: userInfo.username,
             authData: authData
           }
         };
@@ -37,6 +38,15 @@ angular.module('idManagementApp')
 
       getUserInfo: function () {
         return $http.get('api/user');
+      },
+
+      init: function () {
+        var deferred = $q.defer();
+        this.getUserInfo().then(function(result) {
+          userInfo = result.data;
+          deferred.resolve(userInfo);
+        });
+        return deferred.promise;
       },
 
       clearCreds: function () {

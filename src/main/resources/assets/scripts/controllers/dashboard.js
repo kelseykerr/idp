@@ -8,7 +8,7 @@
  * Controller of the idManagementApp
  */
 angular.module('idManagementApp')
-  .controller('MainCtrl', ['$cookies', '$scope', 'authService', function ($cookies, $scope, authService) {
+  .controller('DashboardCtrl', ['$cookies', '$scope', 'authService', function ($cookies, $scope, authService) {
     var creds = $cookies.get('globals');
     if (creds === null || creds === undefined || creds === '') {
       window.location.href = '/#/signin';
@@ -19,9 +19,11 @@ angular.module('idManagementApp')
 
       getUserInfo: function () {
         authService.getUserInfo().then(function(result) {
-          console.log(result);
+          $scope.dashboard.userInfo = result.data;
         });
       },
+
+      userInfo: {},
 
       init: function () {
         $scope.dashboard.getUserInfo();

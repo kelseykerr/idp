@@ -2,6 +2,7 @@ package com.impulsecontrol.idp.resources;
 
 import com.impulsecontrol.idp.core.User;
 import com.impulsecontrol.idp.db.UserDAO;
+import com.impulsecontrol.idp.wrappers.UserDTO;
 import io.dropwizard.hibernate.UnitOfWork;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +24,8 @@ public class UserResource {
 
     @GET
     @UnitOfWork
-    public User getCurrentUser(@Context HttpServletRequest request) {
-        return (User) request.getAttribute("X-Auth-User");
+    public UserDTO getCurrentUser(@Context HttpServletRequest request) {
+        User user = (User) request.getAttribute("X-Auth-User");
+        return UserDTO.transform(user);
     }
 }
