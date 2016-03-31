@@ -47,4 +47,20 @@
                 referencedTableName="role"
                 referencedColumnNames="id"/>
     </changeSet>
+    <changeSet id="2" author="kelseykerr">
+    <createTable tableName="sp_metadata">
+        <column name="id" type="bigint" autoIncrement="true">
+            <constraints primaryKey="true" nullable="false"/>
+        </column>
+        <column name="app_name" type="varchar(255)">
+            <constraints nullable="false"/>
+        </column>
+        <column name="entity_id" type="varchar(255)"/>
+        <column name="acs_url" type="varchar(255)"/>
+        <column name="audience_restriction" type="varchar(255)"/>
+        <column name="destination_url" type="varchar(255)"/>
+        <column name="recipient_url" type="varchar(255)"/>
+        <column name="default_relay_state" type="varchar(255)"/>
+    </createTable>
+    </changeSet>
 </databaseChangeLog>

@@ -12,16 +12,19 @@ angular.module('idManagementApp')
     $scope.navbar = {
 
       show: function() {
+        console.log($location.path());
         return $location.path() !== '/signin' && $location.path() !== '/signup';
       },
 
       userInfo: {},
 
       init: function () {
-        authService.setHeaders();
-        authService.init().then(function(result) {
-          $scope.navbar.userInfo = result;
-        });
+        if (creds !== undefined && $scope.navbar.show()) {
+          authService.setHeaders();
+          authService.init().then(function(result) {
+            $scope.navbar.userInfo = result;
+          });
+        }
       }
     };
 

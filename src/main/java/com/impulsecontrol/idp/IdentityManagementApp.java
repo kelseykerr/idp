@@ -4,8 +4,10 @@ import com.impulsecontrol.idp.auth.IdPAuthenticator;
 import com.impulsecontrol.idp.auth.IdPAuthorizer;
 import com.impulsecontrol.idp.auth.SecurityFilter;
 import com.impulsecontrol.idp.core.Role;
+import com.impulsecontrol.idp.core.SpMetadata;
 import com.impulsecontrol.idp.core.User;
 import com.impulsecontrol.idp.core.UserToRole;
+import com.impulsecontrol.idp.db.SpMetadataDAO;
 import com.impulsecontrol.idp.db.UserDAO;
 import com.impulsecontrol.idp.resources.AuthenticationResource;
 import com.impulsecontrol.idp.resources.UserResource;
@@ -56,6 +58,7 @@ public class IdentityManagementApp extends Application<IdentityManagementConfigu
     @Override
     public void run(IdentityManagementConfiguration configuration, Environment environment) {
         final UserDAO userDAO = new UserDAO(hibernateBundle.getSessionFactory());
+        final SpMetadataDAO spMetadataDAO = new SpMetadataDAO(hibernateBundle.getSessionFactory());
         SecurityFilter securityFilter = new SecurityFilter(hibernateBundle.getSessionFactory());
 
         environment.jersey().register(new AuthDynamicFeature(new BasicCredentialAuthFilter.Builder<User>()
@@ -66,7 +69,7 @@ public class IdentityManagementApp extends Application<IdentityManagementConfigu
         environment.jersey().register(new AuthValueFactoryProvider.Binder<>(User.class));
         environment.jersey().register(RolesAllowedDynamicFeature.class);
         environment.jersey().register(new UserResource(userDAO));
-        environment.jersey().register(new AuthenticationResource(userDAO));
+        environment.jersey().register(new AuthenticationResource(userDAO, spMetadataDAO));
 
         FilterRegistration.Dynamic filterRegistration = environment.servlets()
                 .addFilter("basicAuthFilter", securityFilter);

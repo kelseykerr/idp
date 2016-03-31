@@ -10,6 +10,8 @@
 angular.module('idManagementApp')
   .controller('SignInCtrl', ['$scope', 'authService', function ($scope, authService) {
 
+    console.log('here');
+
     $scope.signIn = {
 
       email: '',
