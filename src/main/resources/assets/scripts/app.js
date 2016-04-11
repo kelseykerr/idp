@@ -34,6 +34,10 @@ angular
         templateUrl: 'views/signup.html',
         controller: 'SignUpCtrl'
       })
+      .when('/sso', {
+        templateUrl: '/views/saml-redirect.html',
+        controller: 'samlRedirectController'
+      })
       .otherwise({
         redirectTo: '/'
       });

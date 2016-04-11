@@ -89,24 +89,28 @@ public class SamlService {
             String acs = spMetadata.getAcsUrl();
             String issuerUrl = "http://localhost:8080";
             Response response = new org.opensaml.saml2.core.impl.ResponseBuilder().buildObject();
-
+            System.out.println("here 1*");
             Issuer issuer = buildSamlObject(Issuer.DEFAULT_ELEMENT_NAME);
             issuer.setValue(issuerUrl);
             response.setIssuer(issuer);
-
+            System.out.println("here 2* ");
             byte[] buf = new byte[20];
             SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
             random.nextBytes(buf);
             String id = new String(Hex.encode(buf));
             String responseId = String.valueOf(id);
+            System.out.println("here 3* ");
             response.setID(responseId);
             response.setDestination(acs);
             response.setStatus(buildStatus(StatusCode.SUCCESS_URI, null));
             response.setVersion(SAMLVersion.VERSION_20);
             response.setIssueInstant(new DateTime());
+            System.out.println("here 4* ");
             Assertion assertion = buildDefaultAssertion(user, responseId,
                     spMetadata.getAudienceRestriction(), issuerUrl);
+            System.out.println("here 5* ");
             response.getAssertions().add(assertion);
+            System.out.println("here 6* ");
             return response;
         } catch (Exception e) {
             throw new Exception("Unable to build SAML Response: " + e.getMessage());

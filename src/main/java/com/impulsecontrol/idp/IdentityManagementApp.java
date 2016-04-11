@@ -34,7 +34,7 @@ public class IdentityManagementApp extends Application<IdentityManagementConfigu
     }
 
     private final HibernateBundle<IdentityManagementConfiguration> hibernateBundle =
-            new HibernateBundle<IdentityManagementConfiguration>(User.class, Role.class, UserToRole.class) {
+            new HibernateBundle<IdentityManagementConfiguration>(User.class, Role.class, UserToRole.class, SpMetadata.class) {
                 @Override
                 public DataSourceFactory getDataSourceFactory(IdentityManagementConfiguration configuration) {
                     return configuration.getDataSourceFactory();
@@ -73,7 +73,7 @@ public class IdentityManagementApp extends Application<IdentityManagementConfigu
 
         FilterRegistration.Dynamic filterRegistration = environment.servlets()
                 .addFilter("basicAuthFilter", securityFilter);
-        filterRegistration.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/api/user");
+        filterRegistration.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/api/user", "/api/auth/SSO/*");
     }
 
 }

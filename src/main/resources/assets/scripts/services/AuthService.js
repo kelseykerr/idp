@@ -53,6 +53,10 @@ angular.module('idManagementApp')
         $rootScope.globals = {};
         $cookies.remove('globals');
         $http.defaults.headers.common.Authorization = 'Basic ';
+      },
+
+      samlSSO: function (appName) {
+        return $http.post('api/auth/SSO/' + appName);
       }
     };
   }])

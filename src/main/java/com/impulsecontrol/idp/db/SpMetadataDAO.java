@@ -16,7 +16,7 @@ public class SpMetadataDAO extends AbstractDAO<SpMetadata> {
         super(factory);
     }
 
-    public SpMetadata findUserByAppName(String name) {
+    public SpMetadata findMetadataByAppName(String name) {
         Criteria c = currentSession().createCriteria(SpMetadata.class)
                 .add(Restrictions.eq("appName", name));
         return (SpMetadata) c.uniqueResult();

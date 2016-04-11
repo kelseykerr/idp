@@ -12,7 +12,6 @@ angular.module('idManagementApp')
     $scope.navbar = {
 
       show: function() {
-        console.log($location.path());
         return $location.path() !== '/signin' && $location.path() !== '/signup';
       },
 

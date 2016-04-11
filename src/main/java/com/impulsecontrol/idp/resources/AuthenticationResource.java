@@ -9,6 +9,7 @@ import com.impulsecontrol.idp.services.SamlService;
 import com.impulsecontrol.idp.wrappers.CredentialDTO;
 import com.impulsecontrol.idp.wrappers.SamlResponseDTO;
 import com.impulsecontrol.idp.wrappers.UserDTO;
+import io.dropwizard.auth.basic.BasicCredentials;
 import io.dropwizard.hibernate.UnitOfWork;
 import org.opensaml.saml2.core.Response;
 import org.opensaml.saml2.core.impl.ResponseMarshaller;
@@ -78,7 +79,8 @@ public class AuthenticationResource {
                                   @PathParam("app") String appName) throws Exception {
         try {
             User user = (User) request.getAttribute("X-Auth-User");
-            SpMetadata spMetadata = spMetadataDAO.findUserByAppName(appName);
+            SpMetadata spMetadata = spMetadataDAO.findMetadataByAppName(appName);
+            System.out.println(spMetadata.getId() + "***metadata id");
             Response samlResponse = samlService.buildResponse(user, spMetadata);
             samlResponse = samlService.signSamlResponseObject(samlResponse);
             ResponseMarshaller marshaller = new ResponseMarshaller();

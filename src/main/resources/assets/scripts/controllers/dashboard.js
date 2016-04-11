@@ -27,6 +27,10 @@ angular.module('idManagementApp')
 
       init: function () {
         $scope.dashboard.getUserInfo();
+      },
+
+      testSaml: function () {
+        window.location.href = '/#/sso?app=wp';
       }
     };
 
