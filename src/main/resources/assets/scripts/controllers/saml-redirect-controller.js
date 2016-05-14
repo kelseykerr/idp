@@ -13,8 +13,6 @@ angular.module('idManagementApp')
           redirectUrl: $sce.trustAsResourceUrl(response.data.acsUrl),
           samlResponse: response.data.samlResponse
         }
-        console.log(data.redirectUrl + '***redirect');
-        console.log(data.samlResponse + '***response');
         $rootScope.$broadcast('gateway.redirect', data);
       });
     }

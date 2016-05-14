@@ -80,7 +80,6 @@ public class AuthenticationResource {
         try {
             User user = (User) request.getAttribute("X-Auth-User");
             SpMetadata spMetadata = spMetadataDAO.findMetadataByAppName(appName);
-            System.out.println(spMetadata.getId() + "***metadata id");
             Response samlResponse = samlService.buildResponse(user, spMetadata);
             samlResponse = samlService.signSamlResponseObject(samlResponse);
             ResponseMarshaller marshaller = new ResponseMarshaller();
